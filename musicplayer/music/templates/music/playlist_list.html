@@ -1,0 +1,30 @@
+{% extends 'music/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Your Playlist</h1>
+    <a href="{% url 'playlist-create' %}" class="btn btn-primary">Create New Playlist</a>
+</div>
+
+<div class="row">
+    {% for playlist in playlists %}
+    <div class="cold-md-4 mb-4">
+        <div class="card">
+            {% if playlist.cover_image %}
+            <img src="{{ playlist.cover_image.url }}" class="card-img-top"  alt="{{ playlist.name }}">
+            {% else %}
+            <div class="card-body">
+                <h5 class="card-title">{{ playlist.name }}</h5>
+                <p class="card-text">{{ playlist.songs.count }} songs</p>
+                <a href="{% url 'playlist-detail' playlist.pk %}" class="btn btn-primary">View</a>
+                <a href="{% url 'playlist-update' playlist.pk %}" class="btn btn-secondary">Edit</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p>You don't have any playlist</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

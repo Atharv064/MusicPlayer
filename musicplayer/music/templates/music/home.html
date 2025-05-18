@@ -1,0 +1,26 @@
+{% extends 'music/base.html' %}
+
+{% block content %}
+<h1 class="mb-4">All Songs</h1>
+<div class="row">
+    {% for song in songs %}
+    <div class="col-md-4 mb-4">
+        <div class="card song-card">
+            {% if song.cover_image %}
+                <img src="{{ song.cover_image.url }}" class="card-img-top" alt="{{ song.title }}">
+            {% else %}
+                <div class="card-img-top bg-secondary" style="height: 200px;"></div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ song.title }}</h5>
+                <p class="card-text">{{ song.artist }}</p>
+                {% if song.album %}
+                    <p class="card-text"><small class="text-muted">{{ song.album }}</small></p>
+                {% endif %}
+                <a href="{% url 'song-detail' song.pk %}" class="btn btn-primary">Play</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'music/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1>{{ playlist.name }}</h1>
+        {% if playlist.description %}
+        <p class="lead">{{ playlist.description }}</p>
+        {% endif %}
+    </div>
+    <div>
+        <a href="{% url 'playlist-update' playlist.pk %}" class="btn btn-secondary">Edit</a>
+        <a href="{% url 'playlist-delete' playlist.pk %}" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+
+{% if playlist.cover_image %}
+<img src="{{ playlist.cover_image.url }}" class="img-fluid rounded mb-4" style="max-height: 300px;" alt="{{ playlist.name }}">
+{% endif %}
+
+<h3>Songs</h3>
+<div class="list-group">
+    {% for item in playlist.playlistsong_set.all %}
+    <div class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+            <h5 class="mb-1">{{ item.song.title }}</h5>
+            <small class="text-muted">{{ item.song.artist }}</small>
+        </div>
+        <div>
+            <a href="{% url 'song-detail' item.song.pk %}" class="btn btn-sm btn-primary">Play</a>
+            <form method="POST" action="{% url 'remove-from-playlist' playlist.pk item.song.pk %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+            </form>
+        </div>
+    </div>
+    {% empty %}
+    <div class="alert alert-info">This playlist is empty.</div>
+    {% endfor %}
+</div>
+{% endblock %}

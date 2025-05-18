@@ -1,0 +1,41 @@
+{% extends 'music/base.html' %}
+
+{% block content %}
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ user_profile.profile.profile_picture.url }}">
+        <div class="media-body">
+            <h2 class="account-heading">{{ user_profile.username }}</h2>
+            <p class="text-secondary">{{ user_profile.email }}</p>
+            {% if user_profile.profile.bio %}
+                <p class="text-info">{{ user_profile.profile.bio }}</p>
+            {% endif %}
+            {% if user_profile.profile.location %}
+                <p class="text-muted">From: {{ user_profile.profile.location }}</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <h3 class="mt-4">Uploaded Songs</h3>
+    <div class="row">
+        {% for song in user_profile.song_set.all %}
+        <div class="col-md-4 mb-4">
+            <div class="card song-card">
+                {% if song.cover_image %}
+                    <img src="{{ song.cover_image.url }}" class="card-img-top" alt="{{ song.title }}">
+                {% else %}
+                    <div class="card-img-top bg-secondary" style="height: 200px;"></div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ song.title }}</h5>
+                    <p class="card-text">{{ song.artist }}</p>
+                    <a href="{% url 'song-detail' song.pk %}" class="btn btn-primary">Play</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No songs uploaded yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
