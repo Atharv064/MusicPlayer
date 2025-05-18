@@ -8,3 +8,19 @@ Detailed Use Cases:
 3. User Access Management (Admin Only) - The admin can create, delete, or manage user accounts, ensuring secure and controlled access to the platform.
 4. Form-Based Interactions - Various Django forms are used to facilitate actions such as playlist creation, song addition (admin-only), and user registration/login.
 5. Playlist Curation - Users can create playlists for different requirements.
+
+
+Future Enhancements:
+To expand the functionality of this Django-based music player, the following features are planned:
+
+💳 Payment & Wallet Integration - 
+
+Users will be able to purchase or unlock songs for offline access. A wallet system can be introduced for seamless in-app transactions.
+
+🎙️ User Music Uploads - 
+
+Users will be allowed to upload their original compositions. This will create a space for independent artists to share their work.
+
+🔗 Integration with External Music Platforms - 
+
+Provide the ability to stream or sync music through popular platforms like Spotify, YouTube Music, or SoundCloud. Users can link their accounts to access music from multiple sources in one place.
